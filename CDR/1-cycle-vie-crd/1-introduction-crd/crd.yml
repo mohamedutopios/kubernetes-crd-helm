@@ -1,0 +1,33 @@
+apiVersion: apiextensions.k8s.io/v1   # Spécifie la version de l'API utilisée pour définir la CRD. Ici, nous utilisons la version v1 de l'API 'apiextensions.k8s.io'.
+kind: CustomResourceDefinition        # Indique le type de ressource Kubernetes que nous créons, ici une 'CustomResourceDefinition'.
+
+metadata:                             # Section contenant des informations de métadonnées sur la CRD.
+  name: myresources.example.com       # Le nom complet de la CRD. Il doit être unique dans le cluster et inclut généralement le groupe pour éviter les conflits.
+
+spec:                                 # Spécification de la CRD, décrivant les détails de la ressource personnalisée.
+  group: example.com                  # Le groupe API sous lequel la ressource sera enregistrée. Utilisé pour regrouper des ressources similaires.
+
+  versions:                           # Liste des versions de la ressource personnalisée disponibles.
+    - name: v1                        # Le nom de la version de la ressource personnalisée.
+      served: true                    # Indique si cette version de l'API est desservie par le serveur API.
+      storage: true                   # Indique si cette version de l'API est utilisée pour stocker des objets dans etcd.
+      schema:                         # Le schéma de validation de la ressource pour cette version.
+        openAPIV3Schema:              # Utilise le schéma OpenAPI v3 pour définir la structure et la validation de la ressource.
+          type: object                # Le type de la racine du schéma, ici un objet.
+          properties:                 # Les propriétés de l'objet racine.
+            spec:                     # La section 'spec' de la ressource, qui contient les spécifications de l'utilisateur.
+              type: object            # Le type de 'spec', qui est un objet.
+              properties:             # Les propriétés de l'objet 'spec'.
+                field1:               # La première propriété de 'spec'.
+                  type: string        # Le type de 'field1', qui est une chaîne de caractères.
+                field2:               # La deuxième propriété de 'spec'.
+                  type: integer       # Le type de 'field2', qui est un entier.
+
+  scope: Namespaced                   # La portée de la ressource, ici 'Namespaced', ce qui signifie qu'elle est limitée à un espace de noms spécifique. L'autre option est 'Cluster', pour une ressource globale.
+
+  names:                              # Les noms utilisés pour accéder à la ressource personnalisée.
+    plural: myresources               # Le nom pluriel utilisé dans les URL de l'API.
+    singular: myresource              # Le nom singulier de la ressource.
+    kind: MyResource                  # Le type de la ressource tel qu'il apparaît dans l'API.
+    shortNames:                       # Liste des noms abrégés pour accéder à la ressource.
+      - mr                            # Un nom abrégé pour accéder rapidement à la ressource.
