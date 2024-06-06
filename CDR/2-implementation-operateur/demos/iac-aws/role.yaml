@@ -1,0 +1,9 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: iac-aws-controller-role
+rules:
+- apiGroups: ["example.com"]
+  resources: ["iacaws"]
+  verbs: ["get", "list", "watch"]

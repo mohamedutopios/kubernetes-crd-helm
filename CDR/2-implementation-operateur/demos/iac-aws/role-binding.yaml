@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: iac-aws-controller-rolebinding
+  namespace: default
+subjects:
+- kind: ServiceAccount
+  name: iac-aws-controller
+  namespace: default
+roleRef:
+  kind: Role
+  name: iac-aws-controller-role
+  apiGroup: rbac.authorization.k8s.io

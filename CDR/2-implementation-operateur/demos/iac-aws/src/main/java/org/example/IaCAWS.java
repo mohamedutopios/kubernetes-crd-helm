@@ -1,11 +1,18 @@
 package org.example;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.fabric8.kubernetes.api.model.KubernetesResource;
 import io.fabric8.kubernetes.client.CustomResource;
+import io.fabric8.kubernetes.model.annotation.Group;
+import io.fabric8.kubernetes.model.annotation.Version;
 import io.kubernetes.client.common.KubernetesObject;
 import io.kubernetes.client.openapi.models.V1ObjectMeta;
 
-public class IaCAWS extends CustomResource {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@Group("example.com")
+@Version("v1")
+public class IaCAWS extends CustomResource<IaCAWS.Spec, IaCAWS.Status> implements KubernetesResource {
     @JsonProperty("spec")
     private Spec spec;
 

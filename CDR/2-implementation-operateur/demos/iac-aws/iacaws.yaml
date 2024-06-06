@@ -1,0 +1,12 @@
+apiVersion: example.com/v1
+kind: IaCAWS
+metadata:
+  name: my-iacaws-instance
+spec:
+  vpcCidrBlock: "10.0.0.0/16"
+  ec2InstanceType: "t2.micro"
+  ec2InstanceName: "my-ec2-instance"
+  rdsInstanceType: "db.t2.micro"
+  rdsInstanceName: "my-rds-instance"
+  dbUsername: "admin"
+  dbPassword: "password123"

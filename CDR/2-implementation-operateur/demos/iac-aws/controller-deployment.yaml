@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iac-aws-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iac-aws-controller
+  template:
+    metadata:
+      labels:
+        app: iac-aws-controller
+    spec:
+      serviceAccountName: iac-aws-controller
+      containers:
+        - name: controller
+          image: mohamed1780/iacaws3:latest
+          imagePullPolicy: Always
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aws-secret
+                  key: access_key
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-secret
+                  key: secret_key
+            - name: AWS_REGION
+              value: "us-east-1"  # Specify your AWS region
+            - name: KUBERNETES_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
