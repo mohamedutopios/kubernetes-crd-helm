@@ -10,6 +10,7 @@ import io.kubernetes.client.common.KubernetesObject;
 import io.kubernetes.client.openapi.models.V1ObjectMeta;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Group("example.com")
 @Version("v1")
 public class IaCAWS extends CustomResource<IaCAWS.Spec, IaCAWS.Status> implements KubernetesResource {
